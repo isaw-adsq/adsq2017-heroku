@@ -5,6 +5,7 @@ folium>=0.2.1
 gunicorn>=19.4.5
 markdown>=2.6.7
 rdflib>=4.2.2
+rdflib-jsonld >= 0.0
 #whitenoise==2.0.6
 Jinja2>=2.7.1
 Werkzeug>=0.9.4
