@@ -8,10 +8,10 @@ import re
 import urllib.parse
 import urllib.request
 
+from bs4 import BeautifulSoup
+
 import dominate
 from dominate.tags import *
-
-from bs4 import BeautifulSoup
 
 from flask import Flask
 from flask import render_template
@@ -19,8 +19,9 @@ from flask import request
 from flask import redirect, url_for, after_this_request
 
 import markdown
-
+import pymysql.cursors
 import rdflib
+
 
 ns = {"dcterms" : "http://purl.org/dc/terms/",
       "owl"     : "http://www.w3.org/2002/07/owl#",
