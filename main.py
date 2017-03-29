@@ -34,7 +34,7 @@ app = Flask(__name__)
 
 g = rdflib.Graph()
 
-result = g.parse("p-lod.nt", format="nt")
+result = g.load("http://sfsheath.github.com/roman-amphitheaters/roman-amphitheaters.geojson", format="json-ld")
 
 def plodheader(doc, plod = ''):
     
@@ -371,7 +371,7 @@ def geojson_entity(entity):
 
 @app.route('/')
 def index():
-    return print("hi")
+    return "hi"
     
 
     
