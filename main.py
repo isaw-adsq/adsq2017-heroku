@@ -45,7 +45,7 @@ app = Flask(__name__)
 #default
 @app.route('/')
 def index():
-    return "cheese."
+    return "<html><body><b>Hello</b></body></html>"
 
 # display # of triples to show it's working
 @app.route('/ramphs/graph')
