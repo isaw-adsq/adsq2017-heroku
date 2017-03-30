@@ -45,7 +45,7 @@ app = Flask(__name__)
 #default
 @app.route('/')
 def index():
-    return "working."
+    return "cheese."
 
 # display # of triples to show it's working
 @app.route('/ramphs/graph')
@@ -157,6 +157,7 @@ def ramphs_popup():
 @app.route('/ramphs/showid')
 def ramphs_showid():
    id = request.args.get('id')
+   # basically, just redirect to the URL that can show info for a single amphitheater
    return redirect("/ramphs/id/{}".format(id), code=302)
 
                     
