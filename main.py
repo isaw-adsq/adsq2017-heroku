@@ -19,6 +19,8 @@ from flask import request
 from flask import redirect, url_for, after_this_request
 
 import markdown
+import numpy as np
+import pandas as pd
 import pymysql.cursors
 import rdflib
 
@@ -33,9 +35,45 @@ ns = {"dcterms" : "http://purl.org/dc/terms/",
 
 app = Flask(__name__)
 
-g = rdflib.Graph()
 
-result = g.load("http://sfsheath.github.com/roman-amphitheaters/roman-amphitheaters.geojson", format="json-ld")
+@app.route('/')
+def index():
+    return "working."
+
+@app.route('/ramphs/graph')
+def ramphs_graph():
+    
+    g = rdflib.Graph()
+    
+    result = g.load("http://sfsheath.github.com/roman-amphitheaters/roman-amphitheaters.geojson", format="json-ld")
+
+    result = g.query("SELECT (count(?s) as ?cnt) WHERE { ?s ?p ?o }")
+    for r in result:
+        triplecnt = r.cnt
+    
+    return "Total triples after g.load: {}".format(triplecnt)
+    
+@app.route('/ramphs/tables')
+def ramphs_tables():
+    connection = pymysql.connect(host='hosting.nyu.edu',
+                             user='sebastia_adsqro',
+                             password = os.environ.get('MYSQL_PW'),
+                             db='sebastia_adsq',
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
+
+    sql = "select * from ramphs"
+
+   
+    with connection.cursor() as cursor:
+
+        cursor.execute(sql)
+        names = [ x[0] for x in cursor.description]
+        result = cursor.fetchall()
+
+    df = pd.DataFrame(result, columns = names)
+    
+    return str(df.keys())
 
 def plodheader(doc, plod = ''):
     
@@ -357,12 +395,7 @@ def vocabulary(vocab):
 
                     
 
-@app.route('/')
-def index():
-    result = g.query("SELECT (count(?s) as ?cnt) WHERE { ?s ?p ?o }")
-    for r in result:
-        cnt = r.cnt
-    return cnt
+
     
     
 
