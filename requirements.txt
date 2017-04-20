@@ -3,6 +3,7 @@ dominate>=2.2.1
 Flask>=0.8
 folium>=0.2.1
 gunicorn>=19.4.5
+json>=0.0
 markdown>=2.6.7
 pandas >= 0.0
 pymysql >= 0.0

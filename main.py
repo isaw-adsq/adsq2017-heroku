@@ -18,6 +18,7 @@ from flask import render_template
 from flask import request
 from flask import redirect, url_for, after_this_request
 
+import json
 import markdown
 import numpy as np
 import pandas as pd
@@ -45,7 +46,7 @@ app = Flask(__name__)
 #default
 @app.route('/')
 def index():
-    return "<html><body><b>Hello</b></body></html>"
+    return "<html><head><style></style></head><body><b>Hello</b></body></html>"
 
 # display # of triples to show it's working
 @app.route('/ramphs/graph')
@@ -87,7 +88,8 @@ def ramphs_tables():
     
     return "<html>{}</html>".format(df.to_html())
 
-
+    
+    
 # display info for single amphitheater
 @app.route('/ramphs/id/<path:amphitheater>')
 def ramphs_id(amphitheater):
